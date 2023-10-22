@@ -8,7 +8,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+
 
 public class Home extends JFrame implements ActionListener {
 	
@@ -46,7 +49,8 @@ public class Home extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 100, 500, 600);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(201, 200, 255));
+		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -54,7 +58,7 @@ public class Home extends JFrame implements ActionListener {
 		// to terminate JVM while closing the GUI
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		// initialise RockPaperScissor class
+		// Initialize RockPaperScissor class
 		rps = new RockPaperScissor();
 		
 		// ------------ components -------------------------
@@ -69,23 +73,25 @@ public class Home extends JFrame implements ActionListener {
 		
 		// 1) System score Label 
 		sysScoreLabel = new JLabel("Computer : 0");
-		sysScoreLabel.setBounds(0,43,450,30);
-		sysScoreLabel.setFont(new Font("Dialog",Font.BOLD, 26)); 
+		sysScoreLabel.setBounds(0,222,476,30);
+		sysScoreLabel.setFont(new Font("Bookman Old Style", Font.BOLD, 26)); 
 		sysScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(sysScoreLabel);
 		
 		// 2) System Choice
 		sysChoice = new JLabel("?");
-		sysChoice.setBounds(175,118,98,81);
+		sysChoice.setBackground(new Color(255, 255, 255));
+		sysChoice.setOpaque(true);
+		sysChoice.setBounds(185,94,98,81);
 		sysChoice.setFont(new Font("Dialog",Font.PLAIN,18));
 		sysChoice.setHorizontalAlignment(SwingConstants.CENTER);
-		sysChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		sysChoice.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		getContentPane().add(sysChoice);
 		
 		// 3) Player score Label
 		playerScoreLabel = new JLabel("Player : 0");
-		playerScoreLabel.setBounds(0,317,450,30);
-		playerScoreLabel.setFont(new Font("Dialog",Font.BOLD, 26)); 
+		playerScoreLabel.setBounds(0,291,476,30);
+		playerScoreLabel.setFont(new Font("Bookman Old Style", Font.BOLD, 26)); 
 		playerScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(playerScoreLabel);
 		
@@ -96,19 +102,19 @@ public class Home extends JFrame implements ActionListener {
 		buttonRock.setBounds(60,387,105,81);
 		buttonRock.setFont(new Font("Dialog",Font.PLAIN,18));
 		buttonRock.addActionListener(this);
-		add(buttonRock);
+		getContentPane().add(buttonRock);
 		// -> Paper
 		buttonPaper = new JButton("Paper");
 		buttonPaper.setBounds(185,387,105,81);
 		buttonPaper.setFont(new Font("Dialog",Font.PLAIN,18));
 		buttonPaper.addActionListener(this);
-		add(buttonPaper);
+		getContentPane().add(buttonPaper);
 		// -> Scissor
 		buttonScissor = new JButton("Scissor");
 		buttonScissor.setBounds(310,387,105,81);
 		buttonScissor.setFont(new Font("Dialog",Font.PLAIN,18));
 		buttonScissor.addActionListener(this);
-		add(buttonScissor);
+		getContentPane().add(buttonScissor);
 		
 		// showPopUp("test message");
 		
@@ -124,7 +130,7 @@ public class Home extends JFrame implements ActionListener {
 		JLabel resultLabel = new JLabel(message);
 		resultLabel.setFont(new Font("Dialog",Font.PLAIN,18));
 		resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		resultPopUp.add(resultLabel,BorderLayout.CENTER);
+		resultPopUp.getContentPane().add(resultLabel,BorderLayout.CENTER);
 		
 		JButton tryAgainButton = new JButton("Try Again");
 		tryAgainButton.addActionListener(new ActionListener() {
@@ -136,7 +142,7 @@ public class Home extends JFrame implements ActionListener {
 			
 		});
 		
-		resultPopUp.add(tryAgainButton, BorderLayout.SOUTH);
+		resultPopUp.getContentPane().add(tryAgainButton, BorderLayout.SOUTH);
 		resultPopUp.setLocationRelativeTo(this);
 		resultPopUp.setVisible(true);
 		
