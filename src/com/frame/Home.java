@@ -153,7 +153,6 @@ public class Home extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		String playerChoice = e.getActionCommand().toString();
-		
 		String result = rps.startGame(playerChoice);
 		
 		sysChoice.setText(rps.getSysChoice());
@@ -161,7 +160,6 @@ public class Home extends JFrame implements ActionListener {
 		playerScoreLabel.setText("Player : " + rps.getPlayerScore());
 		
 		showPopUp(result);
-		
 		
 	}
 	
