@@ -10,10 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Home extends JFrame {
+public class Home extends JFrame implements ActionListener {
 	
 	JButton buttonRock, buttonPaper, buttonScissor;
-	JLabel sysChoice;
+	JLabel sysChoice, sysScoreLabel, playerScoreLabel;
+	
+	RockPaperScissor rps ;
 
 	private JPanel contentPane;
 
@@ -52,6 +54,9 @@ public class Home extends JFrame {
 		// to terminate JVM while closing the GUI
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		// initialise RockPaperScissor class
+		rps = new RockPaperScissor();
+		
 		// ------------ components -------------------------
 		addComponents();
 		
@@ -63,7 +68,7 @@ public class Home extends JFrame {
 	private void addComponents() {
 		
 		// 1) System score Label 
-		JLabel sysScoreLabel = new JLabel("System : 0");
+		sysScoreLabel = new JLabel("Computer : 0");
 		sysScoreLabel.setBounds(0,43,450,30);
 		sysScoreLabel.setFont(new Font("Dialog",Font.BOLD, 26)); 
 		sysScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -78,7 +83,7 @@ public class Home extends JFrame {
 		getContentPane().add(sysChoice);
 		
 		// 3) Player score Label
-		JLabel playerScoreLabel = new JLabel("Player : 0");
+		playerScoreLabel = new JLabel("Player : 0");
 		playerScoreLabel.setBounds(0,317,450,30);
 		playerScoreLabel.setFont(new Font("Dialog",Font.BOLD, 26)); 
 		playerScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -90,17 +95,22 @@ public class Home extends JFrame {
 		buttonRock = new JButton("Rock");
 		buttonRock.setBounds(60,387,105,81);
 		buttonRock.setFont(new Font("Dialog",Font.PLAIN,18));
+		buttonRock.addActionListener(this);
 		add(buttonRock);
 		// -> Paper
 		buttonPaper = new JButton("Paper");
 		buttonPaper.setBounds(185,387,105,81);
 		buttonPaper.setFont(new Font("Dialog",Font.PLAIN,18));
+		buttonPaper.addActionListener(this);
 		add(buttonPaper);
 		// -> Scissor
 		buttonScissor = new JButton("Scissor");
 		buttonScissor.setBounds(310,387,105,81);
 		buttonScissor.setFont(new Font("Dialog",Font.PLAIN,18));
+		buttonScissor.addActionListener(this);
 		add(buttonScissor);
+		
+		// showPopUp("test message");
 		
 	}
 	
@@ -114,7 +124,7 @@ public class Home extends JFrame {
 		JLabel resultLabel = new JLabel(message);
 		resultLabel.setFont(new Font("Dialog",Font.PLAIN,18));
 		resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		resultPopUp.add(resultLabel);
+		resultPopUp.add(resultLabel,BorderLayout.CENTER);
 		
 		JButton tryAgainButton = new JButton("Try Again");
 		tryAgainButton.addActionListener(new ActionListener() {
@@ -125,6 +135,26 @@ public class Home extends JFrame {
 			}
 			
 		});
+		
+		resultPopUp.add(tryAgainButton, BorderLayout.SOUTH);
+		resultPopUp.setLocationRelativeTo(this);
+		resultPopUp.setVisible(true);
+		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		String playerChoice = e.getActionCommand().toString();
+		
+		String result = rps.startGame(playerChoice);
+		
+		sysChoice.setText(rps.getSysChoice());
+		sysScoreLabel.setText("Computer : " + rps.getSystemScore());
+		playerScoreLabel.setText("Player : " + rps.getPlayerScore());
+		
+		showPopUp(result);
 		
 		
 	}
